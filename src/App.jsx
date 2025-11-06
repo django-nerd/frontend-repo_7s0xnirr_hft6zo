@@ -1,28 +1,18 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Projects from './components/Projects';
-import About from './components/About';
-import Footer from './components/Footer';
+import React from 'react';
+import Navbar from './components/Navbar.jsx';
+import Hero from './components/Hero.jsx';
+import Experience from './components/Experience.jsx';
+import Footer from './components/Footer.jsx';
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-neutral-950 text-white selection:bg-fuchsia-300/60 selection:text-neutral-900">
+    <div className="min-h-screen bg-gradient-to-b from-[#07071A] via-[#0A0B25] to-[#0C0F2E] text-white selection:bg-fuchsia-400/30 selection:text-fuchsia-200">
       <Navbar />
-
       <main>
         <Hero />
-
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent" />
-          <Projects />
-        </div>
-
-        <About />
+        <Experience />
       </main>
-
       <Footer />
     </div>
   );
 }
-
-export default App;
