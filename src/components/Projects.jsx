@@ -1,30 +1,30 @@
 import { motion } from 'framer-motion';
-import { Sparkles, Cpu, Bot, Globe } from 'lucide-react';
+import { Server, FileSpreadsheet, Music } from 'lucide-react';
 
 const projects = [
   {
-    title: 'Narrative Model Explorer',
-    description: 'Interactive storytelling tool that visualizes transformer attention to explain predictions.',
-    tag: 'NLP • Visualization',
-    icon: Sparkles,
+    title: 'Distributed Trading Analytics Platform (DTAP)',
+    role: 'Product Developer',
+    description:
+      'Architected cloud-native microservices on AWS with Java Spring and Oracle DB, optimized for 10K+ concurrent transactions. Designed load-balanced, containerized deployments with CI/CD on AWS achieving 99.9% availability.',
+    tags: ['AWS', 'Java Spring', 'Oracle DB', 'Kubernetes', 'CI/CD'],
+    icon: Server,
   },
   {
-    title: 'Realtime Agentic DevOps',
-    description: 'Autonomous agents coordinating CI/CD workflows with human-in-the-loop safety rails.',
-    tag: 'Agents • MLOps',
-    icon: Bot,
+    title: 'InsightSheet: RAG for Excel',
+    role: 'Product Developer',
+    description:
+      'Built a Retrieval-Augmented Generation interface for Excel using OpenAI + LangChain. Implemented custom embeddings with FAISS and cosine similarity for structured cell retrieval and reranking.',
+    tags: ['RAG', 'LangChain', 'FAISS', 'OpenAI'],
+    icon: FileSpreadsheet,
   },
   {
-    title: 'Edge Vision Pipeline',
-    description: 'Quantized detection running on-device with WebGPU acceleration and streaming analytics.',
-    tag: 'CV • Systems',
-    icon: Cpu,
-  },
-  {
-    title: 'Generative Portfolio Engine',
-    description: 'Personalized portfolio that adapts content based on visitor intent using RAG.',
-    tag: 'GenAI • RAG',
-    icon: Globe,
+    title: 'SPOT - Music Discovery Extension',
+    role: 'Builder',
+    description:
+      'Published an NLP-powered Chrome extension enabling cross-platform playlist syncing between Spotify and Apple Music. Integrated Google Analytics for engagement insights.',
+    tags: ['Chrome Ext', 'NLP', 'Spotify', 'Apple Music'],
+    icon: Music,
   },
 ];
 
@@ -32,12 +32,12 @@ export default function Projects() {
   return (
     <section id="projects" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Selected Work</h2>
-          <p className="mt-3 text-neutral-600 dark:text-neutral-400">A snapshot of research-meets-product builds with smooth, purposeful motion.</p>
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Selected Projects</h2>
+          <p className="mt-3 text-neutral-400">Systems that scale, interfaces that explain.</p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p, i) => (
             <motion.div
               key={p.title}
@@ -45,7 +45,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="group relative overflow-hidden rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white dark:bg-neutral-900 p-5 hover:shadow-xl/20 hover:shadow-indigo-500/10"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5 hover:shadow-xl/20 hover:shadow-indigo-500/10"
             >
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-tr from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 pointer-events-none" />
               <div className="flex items-center gap-3">
@@ -53,12 +53,16 @@ export default function Projects() {
                   <p.icon size={18} />
                 </span>
                 <div>
-                  <h3 className="font-semibold">{p.title}</h3>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400">{p.tag}</p>
+                  <h3 className="font-semibold leading-tight">{p.title}</h3>
+                  {p.role && <p className="text-xs text-indigo-300/90">{p.role}</p>}
                 </div>
               </div>
-              <p className="mt-4 text-sm text-neutral-700 dark:text-neutral-300">{p.description}</p>
-              <button className="mt-5 text-sm font-medium text-indigo-600 hover:text-indigo-700">Read case study →</button>
+              <p className="mt-4 text-sm text-neutral-300">{p.description}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {p.tags.map((t) => (
+                  <span key={t} className="text-[11px] rounded-md border border-white/10 bg-white/5 px-2 py-1 text-indigo-200/90">{t}</span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Brain, Github, Linkedin, Mail } from 'lucide-react';
+import { Brain, Linkedin, Mail } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,46 +25,38 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <button
             onClick={() => scrollTo('hero')}
-            className="flex items-center gap-2 font-semibold tracking-tight text-neutral-900 dark:text-white"
+            className="flex items-center gap-3 font-semibold tracking-tight text-neutral-900 dark:text-white"
           >
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-indigo-500 via-violet-500 to-fuchsia-500 text-white">
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-[0_0_18px_rgba(99,102,241,0.45)]">
               <Brain size={18} />
             </span>
-            <span>ML/AI Engineer</span>
+            <span className="hidden sm:inline">Akshit Calonia</span>
+            <span className="sm:hidden">AC</span>
           </button>
 
           <nav className="hidden md:flex items-center gap-8 text-sm">
-            <button onClick={() => scrollTo('projects')} className="hover:text-indigo-600 transition-colors">Projects</button>
-            <button onClick={() => scrollTo('about')} className="hover:text-indigo-600 transition-colors">About</button>
-            <a href="mailto:hello@example.com" className="hover:text-indigo-600 transition-colors">Contact</a>
+            <button onClick={() => scrollTo('projects')} className="hover:text-indigo-500 transition-colors">Projects</button>
+            <button onClick={() => scrollTo('about')} className="hover:text-indigo-500 transition-colors">About</button>
+            <a href="https://www.linkedin.com/in/akshit-calonia/" target="_blank" rel="noreferrer" className="hover:text-indigo-500 transition-colors">LinkedIn</a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <a
-              href="https://github.com/"
+              href="https://www.linkedin.com/in/akshit-calonia/"
               target="_blank"
               rel="noreferrer"
-              className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-              aria-label="GitHub"
+              className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-2 text-sm font-medium hover:opacity-90 transition"
             >
-              <Github size={18} />
+              <Linkedin size={16} />
+              Connect
             </a>
-            <a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={18} />
-            </a>
-            <a
-              href="mailto:hello@example.com"
-              className="hidden sm:inline-flex items-center gap-2 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-2 text-sm font-medium hover:opacity-90 transition"
+            <button
+              onClick={() => scrollTo('contact')}
+              className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 backdrop-blur px-3 py-2 text-sm font-medium text-neutral-900 dark:text-white hover:bg-white/10 transition"
             >
               <Mail size={16} />
-              Let’s talk
-            </a>
+              Contact
+            </button>
           </div>
         </div>
       </div>

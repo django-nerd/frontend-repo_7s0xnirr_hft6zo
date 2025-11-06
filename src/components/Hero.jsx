@@ -55,22 +55,22 @@ export default function Hero() {
       <div className="relative mx-auto flex min-h-[92vh] max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         <motion.div
           style={{ rotateX: tiltX, rotateY: tiltY }}
-          className="max-w-2xl"
+          className="max-w-3xl"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-tr from-blue-400 via-indigo-300 to-fuchsia-400 drop-shadow-[0_0_20px_rgba(99,102,241,0.35)]">
-            Turning Complex Data into Living Art
+          <p className="text-sm font-medium tracking-wider text-indigo-300/90">ML & AI Engineer</p>
+          <h1 className="mt-2 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-tr from-blue-400 via-indigo-300 to-fuchsia-400 drop-shadow-[0_0_20px_rgba(99,102,241,0.35)]">
+            Akshit Calonia
           </h1>
           <motion.p
-            className="mt-4 text-base sm:text-lg md:text-xl text-neutral-300"
+            className="mt-3 text-base sm:text-lg md:text-xl text-neutral-300"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            ML and AI software engineer crafting intelligent systems and cinematic interfaces — a blend of
-            neural storytelling, cyberpunk glow, and fluid motion.
+            Computer Science @ Georgia Institute of Technology. I build intelligent systems and cinematic interfaces — blending neural storytelling, cyberpunk glow, and fluid motion.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -82,13 +82,15 @@ export default function Hero() {
               href="#projects"
               className="inline-flex items-center justify-center rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-fuchsia-600 text-white px-5 py-3 text-sm font-semibold shadow-[0_0_30px_rgba(99,102,241,0.35)] hover:brightness-110 transition"
             >
-              Explore the Work
+              Explore Projects
             </a>
             <a
-              href="#about"
+              href="https://www.linkedin.com/in/akshit-calonia/"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/5 backdrop-blur px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition"
             >
-              Philosophy & Craft
+              LinkedIn Profile
             </a>
           </motion.div>
         </motion.div>
