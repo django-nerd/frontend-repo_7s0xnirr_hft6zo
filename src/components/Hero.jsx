@@ -1,56 +1,97 @@
+import { useRef } from 'react';
 import Spline from '@splinetool/react-spline';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 export default function Hero() {
+  const containerRef = useRef(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 120, damping: 20 });
+  const sy = useSpring(my, { stiffness: 120, damping: 20 });
+  const tiltX = useTransform(sy, (v) => v / 30);
+  const tiltY = useTransform(sx, (v) => -v / 30);
+
+  const onMouseMove = (e) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    mx.set(x);
+    my.set(y);
+  };
+
   return (
-    <section id="hero" className="relative min-h-[90vh] w-full overflow-hidden">
+    <section id="hero" ref={containerRef} onMouseMove={onMouseMove} className="relative min-h-[92vh] w-full overflow-hidden bg-neutral-950">
+      {/* 3D scene */}
       <div className="absolute inset-0">
         <Spline
-          scene="https://prod.spline.design/VJLoxp84lCdVfdZu/scene.splinecode"
+          scene="https://prod.spline.design/EF7JOSsHLk16Tlw9/scene.splinecode"
           style={{ width: '100%', height: '100%' }}
         />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white dark:from-neutral-950/70 dark:via-neutral-950/40 dark:to-neutral-950" />
+      {/* Cyberpunk color wash + vignette (does not block Spline interaction) */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/10 via-fuchsia-500/5 to-blue-600/10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.15),transparent_60%),radial-gradient(ellipse_at_bottom,rgba(217,70,239,0.18),transparent_60%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/40 via-neutral-950/20 to-neutral-950/70" />
+      </div>
 
-      <div className="relative mx-auto flex min-h-[90vh] max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-tr from-indigo-600 via-violet-600 to-fuchsia-600"
-          >
-            Innovative ML & AI Engineer
-          </motion.h1>
+      {/* Reactive spotlight following cursor (pure visual, non-blocking) */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -inset-24"
+        style={{
+          background:
+            'radial-gradient(600px 600px at var(--mx) var(--my), rgba(168,85,247,0.14), transparent 60%), radial-gradient(400px 400px at calc(var(--mx) - 120px) calc(var(--my) - 60px), rgba(59,130,246,0.12), transparent 60%)',
+          // @ts-ignore
+          ['--mx']: useTransform(sx, (v) => `calc(50% + ${v}px)`),
+          // @ts-ignore
+          ['--my']: useTransform(sy, (v) => `calc(50% + ${v}px)`),
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative mx-auto flex min-h-[92vh] max-w-7xl items-center px-4 sm:px-6 lg:px-8">
+        <motion.div
+          style={{ rotateX: tiltX, rotateY: tiltY }}
+          className="max-w-2xl"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-tr from-blue-400 via-indigo-300 to-fuchsia-400 drop-shadow-[0_0_20px_rgba(99,102,241,0.35)]">
+            Turning Complex Data into Living Art
+          </h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            className="mt-4 text-base sm:text-lg md:text-xl text-neutral-300"
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-            className="mt-4 text-base sm:text-lg md:text-xl text-neutral-700 dark:text-neutral-300"
+            transition={{ delay: 0.1, duration: 0.6 }}
           >
-            Blending rigorous research with playful interaction and narrative-driven product design.
+            ML and AI software engineer crafting intelligent systems and cinematic interfaces — a blend of
+            neural storytelling, cyberpunk glow, and fluid motion.
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
             className="mt-8 flex flex-wrap gap-3"
           >
             <a
               href="#projects"
-              className="inline-flex items-center justify-center rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-5 py-3 text-sm font-semibold hover:opacity-90 transition"
+              className="inline-flex items-center justify-center rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-fuchsia-600 text-white px-5 py-3 text-sm font-semibold shadow-[0_0_30px_rgba(99,102,241,0.35)] hover:brightness-110 transition"
             >
-              Explore Projects
+              Explore the Work
             </a>
             <a
               href="#about"
-              className="inline-flex items-center justify-center rounded-lg border border-neutral-300 dark:border-neutral-700 px-5 py-3 text-sm font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition"
+              className="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/5 backdrop-blur px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition"
             >
-              About Me
+              Philosophy & Craft
             </a>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
